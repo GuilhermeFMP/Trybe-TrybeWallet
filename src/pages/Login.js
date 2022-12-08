@@ -27,17 +27,17 @@ class Login extends React.Component {
 
   emailCheck(email) {
     return !!(email.includes('@') === true
-         || email.includes('.') === true);
+         && email.includes('.com') === true);
   }
 
   buttonCheck() {
     const { email, password } = this.state;
     const MIN_CHARACTERS = 6;
-    const passwordvalidation = password.length >= MIN_CHARACTERS;
+    const passwordvalidation = password.length < MIN_CHARACTERS;
     const emailvalidation = !(this.emailCheck(email));
     const validation = passwordvalidation || emailvalidation;
     this.setState({
-      buttonDisabled: !validation,
+      buttonDisabled: validation,
     });
   }
 
