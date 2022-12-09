@@ -9,6 +9,16 @@ export const walletCurrencies = (currencies) => ({
   payload: currencies,
 });
 
+export const walletValue = (value) => ({
+  type: 'WALLET_ATT',
+  payload: value,
+});
+
+export const walletExpenses = (expense) => ({
+  type: 'WALLET_EXPENSE',
+  payload: expense,
+});
+
 export const searchFailure = (error) => (
   { type: 'SEARCH_ERROR', error }
 );
@@ -18,7 +28,6 @@ export function fetchAPI() {
     try {
       const response = await fetch('https://economia.awesomeapi.com.br/json/all');
       const data = await response.json();
-      console.log(data);
       delete data.USDT;
       const array = Object.keys(data);
       dispatch(walletCurrencies(array));
