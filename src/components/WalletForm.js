@@ -40,13 +40,6 @@ class WalletForm extends Component {
       tag,
       exchangeRates: money,
     };
-    this.setState({
-      value: '',
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-    });
     dispatch(walletExpenses(newExpense));
     const numberMoney = Number(value);
     const valor = money[currency].ask;
@@ -54,6 +47,11 @@ class WalletForm extends Component {
     const result = totalValue + real;
     dispatch(walletValue(result));
     this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       totalValue: result,
     });
   }
@@ -153,15 +151,7 @@ class WalletForm extends Component {
 WalletForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.arrayOf([{
-    id: PropTypes.number.isRequired,
-    method: PropTypes.string.isRequired,
-    currency: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    tag: PropTypes.string.isRequired,
-    value: PropTypes.any.isRequired,
-    exchangeRates: PropTypes.any.isRequired,
-  }])).isRequired,
+  expenses: PropTypes.instanceOf(Array).isRequired,
 };
 
 const mapStateToProps = (state) => ({
