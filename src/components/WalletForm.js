@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchAPI, walletExpenses, walletValue } from '../redux/actions/index';
+import { walletExpenses, walletValue } from '../redux/actions/index';
 import moneyAPI from '../services/moneyAPI';
 
 class WalletForm extends Component {
@@ -21,16 +21,10 @@ class WalletForm extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchAPI());
-  }
-
   async handleClick() {
     const { value, description, currency, method, tag, totalValue } = this.state;
     const { dispatch, expenses } = this.props;
     const money = await moneyAPI();
-    console.log(money);
     const newExpense = {
       id: expenses.length,
       value,
@@ -40,18 +34,15 @@ class WalletForm extends Component {
       tag,
       exchangeRates: money,
     };
-    dispatch(walletExpenses(newExpense));
     const numberMoney = Number(value);
     const valor = money[currency].ask;
     const real = numberMoney * valor;
     const result = totalValue + real;
     dispatch(walletValue(result));
+    dispatch(walletExpenses(newExpense));
     this.setState({
       value: '',
       description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
       totalValue: result,
     });
   }
@@ -108,17 +99,17 @@ class WalletForm extends Component {
               }
             </select>
           </label>
-          <label htmlFor="methody">
+          <label htmlFor="method">
             <select
-              name="methody"
-              id="methody"
+              name="method"
+              id="method"
               data-testid="method-input"
               onChange={ this.handleChange }
               value={ method }
             >
-              <option>Dinheiro</option>
-              <option>Cartão de crédito</option>
-              <option>Cartão de débito</option>
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
           <label htmlFor="tag">
