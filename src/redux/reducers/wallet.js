@@ -5,14 +5,20 @@ const INITIAL_STATE = {
   editor: false, // valor booleano que indica de uma despesa está sendo editada
   idToEdit: 0, // valor numérico que armazena o id da despesa que esta sendo editada
   totalValue: 0,
+  error: '',
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'CURRENCY_REQUEST':
+  case 'WALLET_FETCH':
     return {
       ...state,
       currencies: action.payload,
+    };
+  case 'SEARCH_ERROR':
+    return {
+      ...state,
+      error,
     };
   default:
     return state;
