@@ -19,9 +19,24 @@ export const walletExpenses = (expense) => ({
   payload: expense,
 });
 
+export const walletUpdate = (expense) => ({
+  type: 'WALLET_UPDATE',
+  payload: expense,
+});
+
 export const searchFailure = (error) => (
   { type: 'SEARCH_ERROR', error }
 );
+
+export const walletEdit = (id) => ({
+  type: 'WALLET_EDIT',
+  payload: id,
+});
+
+export const walletSave = (expense) => ({
+  type: 'WALLET_SAVE',
+  payload: expense,
+});
 
 export function fetchAPI() {
   return async (dispatch) => {
