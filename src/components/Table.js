@@ -33,14 +33,15 @@ class Table extends Component {
           <th>Editar/Excluir</th>
         </thead>
         <tbody>
-          { expenses.map((expense, index) => {
-            const { description, value, tag, method, exchangeRates, currency } = expense;
+          { expenses.map((expense) => {
+            const {
+              id, description, value, tag, method, exchangeRates, currency } = expense;
             const money = Object.values(exchangeRates !== undefined
               && exchangeRates).find((exchange) => exchange.code === currency);
             const { name, ask } = money;
             const converted = (Number(ask) * Number(value));
             return (
-              <tr key={ index }>
+              <tr key={ id }>
                 <td>{description}</td>
                 <td>{tag}</td>
                 <td>{method}</td>
